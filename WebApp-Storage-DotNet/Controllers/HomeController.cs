@@ -13,17 +13,15 @@
 
 namespace WebApp_Storage_DotNet.Controllers
 {
+    using Microsoft.Azure.Storage;
+    using Microsoft.Azure.Storage.Blob;
     using System;
     using System.Collections.Generic;
-    using System.Web.Mvc;
-    using System.Web;
-    using System.Threading.Tasks;
-    using System.IO;
-    using Microsoft.WindowsAzure;
-    using Microsoft.WindowsAzure.Storage;
-    using Microsoft.WindowsAzure.Storage.Blob;
-    using Microsoft.Azure;
     using System.Configuration;
+    using System.IO;
+    using System.Threading.Tasks;
+    using System.Web;
+    using System.Web.Mvc;
 
     /// <summary> 
     /// Azure Blob Storage Photo Gallery - Demonstrates how to use the Blob Storage service.  
@@ -97,7 +95,7 @@ namespace WebApp_Storage_DotNet.Controllers
         /// <summary> 
         /// Task<ActionResult> UploadAsync() 
         /// Documentation References:  
-        /// - UploadFromFileAsync Method: https://msdn.microsoft.com/en-us/library/azure/microsoft.windowsazure.storage.blob.cloudpageblob.uploadfromfileasync.aspx
+        /// - UploadFromFileAsync Method: https://msdn.microsoft.com/en-us/library/azure/Microsoft.Azure.storage.blob.cloudpageblob.uploadfromfileasync.aspx
         /// </summary> 
         [HttpPost]
         public async Task<ActionResult> UploadAsync()
@@ -112,7 +110,7 @@ namespace WebApp_Storage_DotNet.Controllers
                     for (int i = 0; i < fileCount; i++)
                     {
                         CloudBlockBlob blob = blobContainer.GetBlockBlobReference(GetRandomBlobName(files[i].FileName));
-                        await blob.UploadFromFileAsync(files[i].FileName, FileMode.Open);
+                        await blob.UploadFromFileAsync(files[i].FileName);
                     }
                 }
                 return RedirectToAction("Index");
